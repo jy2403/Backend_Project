@@ -126,6 +126,7 @@ export class UsersService implements UserServiceInterface {
   async login(
     loginDto: LoginDto,
   ): Promise<{ accessToken: string; refreshToken: string; user: User }> {
+    
     const user = await this.userModel.findOne({ email: loginDto.email }).exec();
     if (!user) {
       throw new NotFoundException(
@@ -140,6 +141,10 @@ export class UsersService implements UserServiceInterface {
       loginDto.password,
       user.password,
     );
+    if (!isPasswordCorrect) {
+      throw new BadRequestException('Invalid password');
+    }
+
     const tokens = await this.getTokens(user.id, user.email, user.role);
 
     const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
