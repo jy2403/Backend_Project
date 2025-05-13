@@ -2,7 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { User, UserSchema } from './user/schema/user.schema';
+import {
+  User,
+  UserSchema,
+  ContactInfo,
+  ContactInfoSchema,
+} from './user/schema/user.schema';
 import { EmailModule } from './email/email.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
@@ -21,6 +26,9 @@ import { JwtStrategy } from './user/strategies/jwt.strategy';
       }),
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: ContactInfo.name, schema: ContactInfoSchema },
+    ]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -34,6 +42,6 @@ import { JwtStrategy } from './user/strategies/jwt.strategy';
     EmailModule,
   ],
   controllers: [UsersController],
-  providers: [UsersService,JwtStrategy],
+  providers: [UsersService, JwtStrategy],
 })
 export class UsersModule {}

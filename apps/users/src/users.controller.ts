@@ -17,12 +17,9 @@ export class UsersController {
     return { message: 'User registered successfully, check your email' };
   }
 
-  @Post('verify/id')
-  async verify(
-    @Param('id') id: string,
-    @Body() verifyEmailDto: VerifyEmailDto,
-  ) {
-    await this.usersService.verifyUser(id, verifyEmailDto);
+  @Post('verify')
+  async verify(@Body() verifyEmailDto: VerifyEmailDto) {
+    await this.usersService.verifyUser(verifyEmailDto);
     return { message: 'user verified successfully' };
   }
 

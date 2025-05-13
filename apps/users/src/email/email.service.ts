@@ -19,9 +19,9 @@ export class EmailService {
       },
     });
 
-    this.appName = this.configService.get('APP_NAME') || 'Backend UAM';
-    this.appUrl =
-      this.configService.get('APP_URL') || 'https://backend-uam.com';
+    this.appName =
+      this.configService.get('APP_NAME') || 'CENTRO DE DENUNCIAS CIUDADANAS';
+    this.appUrl = this.configService.get('APP_URL') || 'https://CDC.com';
   }
   async sendVerificationEmail(
     email: string,

@@ -25,10 +25,7 @@ export interface UserServiceInterface {
   create(createUserDto: CreateUserDto): Promise<User>;
   findAll(): Promise<User[]>;
   findByEmail(email: string): Promise<User>;
-  verifyUser(
-    id: string,
-    verifyEmailDto: VerifyEmailDto,
-  ): Promise<{ message: string }>;
+  verifyUser(verifyEmailDto: VerifyEmailDto): Promise<{ message: string }>;
   login(
     loginDto: LoginDto,
   ): Promise<{ accessToken: string; refreshToken: string; user: User }>;

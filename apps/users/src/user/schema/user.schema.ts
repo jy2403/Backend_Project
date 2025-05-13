@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { UserRole } from '../dto/user.dto';
 
 export type UserDocument = User & Document;
-
+export type ContactInfoDocument = ContactInfo & Document;
 @Schema()
 export class ContactInfo {
   @Prop({ required: true })

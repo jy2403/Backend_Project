@@ -11,7 +11,12 @@ import {
   ChangePasswordDto,
 } from './user/dto/user.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User as SchemaUser, UserDocument } from './user/schema/user.schema';
+import {
+  User as SchemaUser,
+  ContactInfo as SchemaContactInfo,
+  UserDocument,
+  ContactInfoDocument,
+} from './user/schema/user.schema';
 import { Model } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -22,6 +27,8 @@ export class UsersService implements UserServiceInterface {
   constructor(
     @InjectModel(SchemaUser.name)
     private readonly userModel: Model<UserDocument>,
+    @InjectModel(SchemaContactInfo.name)
+    private readonly contactInfoModel: Model<ContactInfoDocument>,
     private jwtService: JwtService,
     private configService: ConfigService,
     private emailService: EmailService,
@@ -57,6 +64,10 @@ export class UsersService implements UserServiceInterface {
 
     const user = new this.userModel({
       ...createUserDto,
+      contactInfo: new this.contactInfoModel({
+        phone: createUserDto.phone,
+        address: createUserDto.address,
+      }),
       password: hashedPassword,
       verificationCode,
       verificationCodeExpires,
@@ -85,7 +96,6 @@ export class UsersService implements UserServiceInterface {
   }
 
   async verifyUser(
-    id: string,
     verifyEmailDto: VerifyEmailDto,
   ): Promise<{ message: string }> {
     const { email, code } = verifyEmailDto;
@@ -173,7 +183,9 @@ export class UsersService implements UserServiceInterface {
     refreshToken: string;
   }> {
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync({ userId, email, role },{
+      this.jwtService.signAsync(
+        { userId, email, role },
+        {
           secret: this.configService.get('JWT_ACCESS_SECRET'),
           expiresIn: this.configService.get('JWT_ACCESS_EXPIRATION'),
         },
