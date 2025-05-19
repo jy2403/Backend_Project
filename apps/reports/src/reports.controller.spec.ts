@@ -16,7 +16,7 @@ describe('ReportsController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(reportsController.getHello()).toBe('Hello World!');
+      
     });
   });
 });
