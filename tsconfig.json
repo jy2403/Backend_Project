@@ -17,6 +17,19 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@app/entities": [
+        "libs/entities/src"
+      ],
+      "@app/entities/*": [
+        "libs/entities/src/*"
+      ],
+      "@app/schemas": [
+        "libs/schemas/src"
+      ],
+      "@app/schemas/*": [
+        "libs/schemas/src/*"
+      ]
+    }
   }
 }

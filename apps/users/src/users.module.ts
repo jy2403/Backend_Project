@@ -7,7 +7,7 @@ import {
   UserSchema,
   ContactInfo,
   ContactInfoSchema,
-} from './user/schema/user.schema';
+} from '@app/schemas/user.schema';
 import { EmailModule } from './email/email.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';

@@ -16,7 +16,7 @@ import {
   ContactInfo as SchemaContactInfo,
   UserDocument,
   ContactInfoDocument,
-} from './user/schema/user.schema';
+} from '@app/schemas/user.schema';
 import { Model } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
