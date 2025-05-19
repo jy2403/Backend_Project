@@ -17,6 +17,9 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+        "@app/users/*": ["apps/users/src/*"],
+        "@app/reports/*": ["apps/reports/src/*"]
+    }
   }
 }
