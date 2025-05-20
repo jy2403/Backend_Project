@@ -7,11 +7,11 @@ import {
   UserSchema,
   ContactInfo,
   ContactInfoSchema,
-} from './user/schema/user.schema';
-import { EmailModule } from './email/email.module';
+} from '@app/schemas/user.schema';
+import { EmailModule } from '@app/email/email.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './user/strategies/jwt.strategy';
+import { JwtStrategy } from '@app/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -43,5 +43,6 @@ import { JwtStrategy } from './user/strategies/jwt.strategy';
   ],
   controllers: [UsersController],
   providers: [UsersService, JwtStrategy],
+  exports: [JwtStrategy],
 })
 export class UsersModule {}

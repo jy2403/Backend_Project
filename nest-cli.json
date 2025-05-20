@@ -4,6 +4,33 @@
   "monorepo": true,
   "root": "apps",
   "projects": {
+    "email": {
+      "type": "library",
+      "root": "libs/email",
+      "entryFile": "index",
+      "sourceRoot": "libs/email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email/tsconfig.lib.json"
+      }
+    },
+    "entities": {
+      "type": "library",
+      "root": "libs/entities",
+      "entryFile": "index",
+      "sourceRoot": "libs/entities/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/entities/tsconfig.lib.json"
+      }
+    },
+    "notifications": {
+      "type": "application",
+      "root": "apps/notifications",
+      "entryFile": "main",
+      "sourceRoot": "apps/notifications/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notifications/tsconfig.app.json"
+      }
+    },
     "reports": {
       "type": "application",
       "root": "apps/reports",
@@ -11,6 +38,24 @@
       "sourceRoot": "apps/reports/src",
       "compilerOptions": {
         "tsConfigPath": "apps/reports/tsconfig.app.json"
+      }
+    },
+    "schemas": {
+      "type": "library",
+      "root": "libs/schemas",
+      "entryFile": "index",
+      "sourceRoot": "libs/schemas/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/schemas/tsconfig.lib.json"
+      }
+    },
+    "strategies": {
+      "type": "library",
+      "root": "libs/strategies",
+      "entryFile": "index",
+      "sourceRoot": "libs/strategies/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/strategies/tsconfig.lib.json"
       }
     },
     "users": {
@@ -22,5 +67,8 @@
         "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     }
+  },
+  "compilerOptions": {
+    "webpack": true
   }
 }

@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsOptional,
+  IsPhoneNumber,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -27,7 +28,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(6)
+  @MinLength(6, { message: 'password must be at least 6 characters long' })
   password: string;
 
   @IsOptional()
@@ -36,6 +37,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @IsPhoneNumber('CO', { message: 'phone number is not valid' })
   phone: string;
 
   @IsNotEmpty()
