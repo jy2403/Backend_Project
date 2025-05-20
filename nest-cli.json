@@ -4,6 +4,15 @@
   "monorepo": true,
   "root": "apps",
   "projects": {
+    "email": {
+      "type": "library",
+      "root": "libs/email",
+      "entryFile": "index",
+      "sourceRoot": "libs/email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email/tsconfig.lib.json"
+      }
+    },
     "entities": {
       "type": "library",
       "root": "libs/entities",
@@ -38,6 +47,15 @@
       "sourceRoot": "libs/schemas/src",
       "compilerOptions": {
         "tsConfigPath": "libs/schemas/tsconfig.lib.json"
+      }
+    },
+    "strategies": {
+      "type": "library",
+      "root": "libs/strategies",
+      "entryFile": "index",
+      "sourceRoot": "libs/strategies/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/strategies/tsconfig.lib.json"
       }
     },
     "users": {

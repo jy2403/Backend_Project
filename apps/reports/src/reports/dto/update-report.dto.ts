@@ -6,10 +6,6 @@ export class UpdateReportDto {
   @IsOptional()
   title?: string;
 
-  @IsString()
-  @IsOptional()
-  location?: string;
-
   @IsEnum(ReportState)
   @IsOptional()
   state?: ReportState;

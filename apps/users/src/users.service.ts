@@ -20,7 +20,7 @@ import {
 import { Model } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { EmailService } from './email/email.service';
+import { EmailService } from '@app/email/email.service';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -126,7 +126,6 @@ export class UsersService implements UserServiceInterface {
   async login(
     loginDto: LoginDto,
   ): Promise<{ accessToken: string; refreshToken: string; user: User }> {
-    
     const user = await this.userModel.findOne({ email: loginDto.email }).exec();
     if (!user) {
       throw new NotFoundException(
@@ -144,13 +143,11 @@ export class UsersService implements UserServiceInterface {
     if (!isPasswordCorrect) {
       throw new BadRequestException('Invalid password');
     }
-
-    const tokens = await this.getTokens(user.id, user.email, user.role);
+    const tokens = await this.getTokens(user.id, user.email);
 
     const hashedRefreshToken = await bcrypt.hash(tokens.refreshToken, 10);
     user.refreshToken = hashedRefreshToken;
     await user.save();
-
     return {
       ...tokens,
       user: this.toUserInterface(user),
@@ -182,21 +179,21 @@ export class UsersService implements UserServiceInterface {
   private async getTokens(
     userId: string,
     email: string,
-    role: string,
   ): Promise<{
     accessToken: string;
     refreshToken: string;
   }> {
+    console.log(userId);
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
-        { userId, email, role },
+        { userId, email },
         {
           secret: this.configService.get('JWT_ACCESS_SECRET'),
           expiresIn: this.configService.get('JWT_ACCESS_EXPIRATION'),
         },
       ),
       this.jwtService.signAsync(
-        { sub: userId, email, role },
+        { userId, email },
         {
           secret: this.configService.get('JWT_REFRESH_SECRET'),
           expiresIn: this.configService.get('JWT_REFRESH_EXPIRATION'),

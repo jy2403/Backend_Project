@@ -18,6 +18,12 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@app/email": [
+        "libs/email/src"
+      ],
+      "@app/email/*": [
+        "libs/email/src/*"
+      ],
       "@app/entities": [
         "libs/entities/src"
       ],
@@ -29,6 +35,12 @@
       ],
       "@app/schemas/*": [
         "libs/schemas/src/*"
+      ],
+      "@app/strategies": [
+        "libs/strategies/src"
+      ],
+      "@app/strategies/*": [
+        "libs/strategies/src/*"
       ]
     }
   }

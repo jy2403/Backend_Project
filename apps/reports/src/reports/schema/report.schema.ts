@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { User } from '../../../users/src/user/schema/user.schema';
+import { User } from '@app/schemas/user.schema';
 
 export enum ReportCategory {
   INFRASTRUCTURE = 'infraestructura',
