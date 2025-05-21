@@ -49,7 +49,7 @@ export class UsersService implements UserServiceInterface {
       })
       .exec();
     if (existingUser) {
-      throw new BadRequestException('User already exists');
+      throw new Error('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);

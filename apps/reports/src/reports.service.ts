@@ -45,9 +45,13 @@ export class ReportsService {
     if (!updatedReport) {
       throw new Error('Report not found');
     }
+    const user = await this.userModel.findById(updatedReport.user_id).exec();
+    if (!user) {
+      throw new Error('User not found');
+    }
     await this.emailService.sendStatusEmail(
-      updatedReport.user_id.email,
-      updatedReport.user_id.firstName,
+      user.email,
+      user.firstName,
       updatedReport.title,
       updatedReport.state,
     );
@@ -65,4 +69,5 @@ export class ReportsService {
   async findAll(): Promise<Report[]> {
     return await this.reportModel.find().populate('user_id');
   }
+  async 
 }
