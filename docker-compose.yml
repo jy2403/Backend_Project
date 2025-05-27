@@ -1,45 +1,36 @@
 version: '3.8'
 
 services:
-  api:
-    build: .
+
+  backend-user:
+    container_name: backend-user
+    build:
+      context: .
+      dockerfile: apps/users/Dockerfile
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - PORT=3000
-      - MONGO_URI=mongodb://mongo:27017/nestdb
+      - 3000:3000
+    env_file:
+      - .env
     volumes:
-      - ./:/app
+      - .:/app
       - /app/node_modules
-    depends_on:
-      - mongo
-    restart: unless-stopped
-    command: npm run start:dev reports  # Para desarrollo con hot-reload
+    networks:
+      - network-backend
 
-  mongo:
-    image: mongo:6
-    container_name: mongo
+  backend-reports:
+    container_name: backend-reports
+    build:
+      context: .
+      dockerfile: apps/reports/Dockerfile
     ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
+      - 3001:3000
+    env_file:
+      - .env
     volumes:
-      - mongo_data:/data/db
+      - .:/app
+      - /app/node_modules
+    networks:
+      - network-backend
 
-  # Opcional: Mongo Express (interfaz web)
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - "8081:8081"
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo #aqui coloque el servidor
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root #aqui su usuario de mongo
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=example #su contraseña 
-    depends_on:
-      - mongo
-
-volumes:
-  mongo_data:
+networks:
+  network-backend:
